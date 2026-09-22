@@ -1,5 +1,7 @@
 # Blockzuweisung: In welchen Block kommen die Exportcontainer? – Streamlit-Demo
 
+**[→ Demo live ausprobieren](https://sebastianhanisch-blockzuweisung-demo.streamlit.app/)**
+
 Interaktive Fall-Demo zur **Blockzuweisung im Export** eines Containerterminals: Welche Exportcontainer eines Schiffs kommen in welchen Block des Lagers? Ein Block nah am Liegeplatz hält den **Fahrweg** der Horizontaltransporter kurz,
 aber seine Blockkräne liefern nur so viele Moves je Stunde, wie sie schaffen; verteilt man die Container auf mehrere Blöcke, sinkt die **Wartezeit am Block** und der Weg wächst. Die Demo beantwortet: **Wie viel Fahrweg kostet es,
 die Container so zu verteilen, dass die Blockkräne auch bei verspäteten Schiffen nicht zum Nadelöhr werden?**
