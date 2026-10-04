@@ -331,7 +331,7 @@ schief sind. Ein Unterschied gilt als klar, wenn er mehr als zwei Standardfehler
 **Grenzen dieses Modells** (bewusst so gewählt, damit die Aussage ehrlich bleibt):
 
 - **Flüssigkeitsmodell:** gleichmäßiger Abruf, Blöcke arbeiten unabhängig; ein Rückstand bremst den Schiffskran nicht zurück (das ist eine **Untergrenze** der echten Kopplung von Kran und Block).
-- **Suchaufwand und Umstapeln im Block sind nicht modelliert:** der Bündelungsvorteil ist hier allein der Fahrweg (im Modell höchstens etwa 13 % zwischen den Rändern).
+- **Suchaufwand und Umstapeln im Block sind nicht modelliert:** der Bündelungsvorteil ist hier allein der Fahrweg (im Modell höchstens etwa 13 % gegen die Alltagsregel: Bündeln 228 gegen 264 m bei Kranrate passend).
 - Fahrweg einfach, ohne Stau (der Fahrzeugbedarf folgt daraus, ist aber nicht gerechnet: siehe die Fahrzeugflotte-Demo); alle Blöcke gleich; Container austauschbar (keine Typen, Gewichte, Kühl- oder Gefahrgutcontainer).
 - Die Anlieferung (36 Stunden, gleichmäßig) ist eine **Annahme**, kein Echtdatum; die Kaiplatzplanung ist gegeben; Verspätung ist nur eine Verschiebung des Fensters, keine Dehnung; der Plan wird vor der Anlieferung fest gewählt.
 - Der abgesicherte Plan ist eine **Schätzung** aus zehn Planungsszenarien: ist σ falsch geschätzt, sinkt der Nutzen (Plan für σ = 3 h, getestet bei σ = 5 h: 15 statt 7,5 min Wartezeit, Messreihe).
@@ -373,6 +373,6 @@ st.markdown("---")
 
 st.caption(
     "Diese Demo ist Teil des Portfolios von [Sebastian Hanisch](https://sebastianhanisch.net) – "
-    "Operations Research und Machine Learning. Interesse an einer maßgeschneiderten Lösung für "
-    "Ihr Unternehmen? [Kontakt aufnehmen](https://sebastianhanisch.net/kontakt.html)"
+    "Operations Research und Machine Learning ([Über mich](https://sebastianhanisch.net/ueber-mich.html)). "
+    "Mehr zum Thema: [Hafenlogistik optimieren](https://sebastianhanisch.net/hafenlogistik-optimierung.html)."
 )
