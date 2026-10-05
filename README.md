@@ -107,7 +107,7 @@ Test. Der Seed 2017 liegt außerhalb der Stichprobe (3000 bis 3019) und der Grun
 
 ## Tests
 
-`python -m pytest tests/ -v` – 329 Tests, unter Windows rund 4 Minuten, im Linux-Container (Python 3.12, neueste Pakete, `tools/demo_linux_check.py` des Website-Repos) 3,5 Minuten. Zusammensetzung:
+`python -m pytest tests/ -v` – 378 Tests, unter Windows rund 4 Minuten, im Linux-Container (Python 3.12, neueste Pakete, `tools/demo_linux_check.py` des Website-Repos) 3,5 Minuten. Zusammensetzung:
 
 - **Woche:** bitgleich zur Messreihe (feste Referenzwerte für Seed 2017), Massenbilanz je Schiff, Anlieferung und Bestand, Lagergrenze aus dem Spitzenbestand, Verschiebungen (auch extreme), Regler-Grenzen.
 - **Rückstand und Kennzahlen:** von Hand gerechnetes Beispiel, unabhängige Nachrechnung auf 60 Zufallsplänen, Rückstand nie negativ, Last = 2 Moves je Container, Beladeverzug, Lagerüberstand.
