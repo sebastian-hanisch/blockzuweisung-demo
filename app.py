@@ -54,6 +54,17 @@ Zeiten kommen als geplant (**Absicherung**). Wie das Modell funktioniert, steht 
 """
 )
 
+# erklaerseite:einfach:start (erzeugt von tools/set_demo_explainer.py (Website-Repo) aus tools/content/explainers/blockzuweisung-erklaert.json, nicht von Hand ändern)
+with st.expander("💬 In einfachen Worten"):
+    st.markdown(
+        """
+Ein Containerterminal lagert die Exportcontainer eines Schiffs in Blöcken, jeder mit eigenen Kränen. Liegen alle Container im nächsten Block, ist der **Fahrweg** kurz, aber die Kräne kommen nicht nach, und die Container warten. Verteilt man sie auf alle Blöcke, sinkt die **Wartezeit**, und der Weg wächst. Die Demo vergleicht sechs Verfahren auf denselben Wochen und fragt, wie viel Fahrweg es kostet, die Kräne auch bei verspäteten Schiffen nicht zum Nadelöhr werden zu lassen. Dabei zeigt sich: Ein gerechneter Plan mit kleinster Wartezeit zerbricht bei Verspätung, ein **abgesicherter** Plan kostet etwas mehr Weg. Die Zahlen stammen aus einer Simulation mit erfundenen Wochen, nicht von einem echten Terminal.
+
+[Ausführlich und verständlich erklärt, mit Fachteil](https://sebastianhanisch.net/blockzuweisung-erklaert.html)
+        """
+    )
+# erklaerseite:einfach:end
+
 st.caption("🎯 Schnellstart – ein Beispielszenario laden:")
 PRESET_HELP = {
     "Stoßwoche": "Die Kernaussage: der wartefreie Plan zerbricht bei Verspätung, die Absicherung kostet etwa 40 m Fahrweg.",
@@ -341,6 +352,28 @@ schief sind. Ein Unterschied gilt als klar, wenn er mehr als zwei Standardfehler
     )
 
 with st.expander("📐 Mathematische Formulierung"):
+    # erklaerseite:lesehilfe:start (erzeugt von tools/set_demo_explainer.py (Website-Repo) aus tools/content/explainers/blockzuweisung-erklaert.json, nicht von Hand ändern)
+    st.markdown(
+        r"""
+**Lesehilfe.** Gegeben sind Schiffe mit je $n_s$ Containern und einem Beladefenster, Blöcke mit dem Fahrweg $d_{sb}$ zum Liegeplatz und einer Abrufrate $\mu$ je Block. Gesucht ist, wie viele Container $x_{sb}$ von Schiff $s$ in Block $b$ kommen, sodass der mittlere Fahrweg $D$ und die mittlere Wartezeit $W$ am Block klein sind.
+
+| Symbol | Bedeutung |
+|---|---|
+| $s$, $b$, $t$ | Schiff, Block, Stunde |
+| $n_s$ | Zahl der Exportcontainer von Schiff $s$ |
+| $N$ | alle Exportcontainer der Woche |
+| $x_{sb}$ | Container von Schiff $s$ in Block $b$ (der Plan) |
+| $d_{sb}$ | Fahrweg vom Block $b$ zum Liegeplatz von Schiff $s$ in Metern |
+| $\mu$ | Abrufrate je Block in Moves je Stunde |
+| $q^k_{b,t}$ | Rückstand am Block $b$ in Stunde $t$ im Verspätungsszenario $k$ |
+| $W^k$, $D$ | mittlere Wartezeit (Minuten) im Szenario $k$ und mittlerer Fahrweg je Container |
+| $\lambda$ | Preis der Wartezeit in Metern je Minute |
+| $K$ | Lagergrenze je Block |
+
+[Schritt für Schritt erklärt, mit Herleitung und Literatur](https://sebastianhanisch.net/blockzuweisung-erklaert.html#fachleute)
+        """
+    )
+    # erklaerseite:lesehilfe:end
     st.markdown(
         r"""
 **Mengen und Größen.** Schiffe $s$, Blöcke $b$, Stunden $t$. Schiff $s$ hat $n_s$ Container, Fahrweg $d_{sb} = 200 + |\text{Liegeplatz}_s - y_b|$ (m), Abruf-Anteil $a_{s,t} = 1/L_s$ im Fenster

@@ -90,7 +90,7 @@ def test_skeleton_and_footer(default_app):
     assert len(at.title) == 1 and "Blockzuweisung" in at.title[0].value
     assert any(v.value.startswith("## 🎯") for v in at.markdown)
     assert [s.value for s in at.subheader] == ["📐 Was kostet die Absicherung gegen verspätete Schiffe?"]
-    assert [e.label for e in at.expander] == ["🔧 Wie wir das erreichen – Verfahren im Vergleich", "Wie funktioniert diese Demo?", "📐 Mathematische Formulierung"]
+    assert [e.label for e in at.expander] == ["💬 In einfachen Worten", "🔧 Wie wir das erreichen – Verfahren im Vergleich", "Wie funktioniert diese Demo?", "📐 Mathematische Formulierung"]
     assert any(c.value == FOOTER for c in at.caption)
     presets = [b.label for b in at.button if b.label in C.PRESETS]
     assert presets == list(C.PRESETS) and len(presets) == 5 and all(len(n) <= 16 for n in presets)
@@ -143,7 +143,7 @@ def test_charts_are_present_with_unique_keys(default_app):
 def test_no_dead_file_links_in_any_markdown(default_app):
     for text in all_texts(default_app):
         assert not re.search(r"\]\((?!https?://)", text), text
-    math = "\n".join(m.value for m in default_app.expander[2].markdown)
+    math = "\n".join(m.value for m in default_app.expander[3].markdown)
     assert not re.search(r"\]\((?!https?://)", math)
 
 
@@ -153,12 +153,12 @@ def test_pdf_download_button_is_offered(default_app):
 
 
 def test_texts_state_the_methods_the_assumptions_and_the_limits(default_app):
-    text = "\n".join(m.value for m in default_app.expander[1].markdown)
+    text = "\n".join(m.value for m in default_app.expander[2].markdown)
     for needle in ("Bündeln", "Verteilen", "Kranrate passend", "Gierig", "Gerechnet", "abgesichert", "Wartezeit", "Anlieferung", "36 Stunden", "Beladefenster", "Flüssigkeitsmodell",
                    "Suchaufwand und Umstapeln im Block sind nicht modelliert", "Untergrenze", "Größenordnungen aus einer Simulation", "30 von 30", "0 von 30", "nur unter dieser Annahme",
                    "Schätzung", "größten Reste", "Fahrzeugflotte"):
         assert needle in text, needle
-    math = "\n".join(m.value for m in default_app.expander[2].markdown)
+    math = "\n".join(m.value for m in default_app.expander[3].markdown)
     for needle in ("\\sum_b x_{sb} = n_s", "Konvexität", "2\\,\\mathrm{SE}", "größten Reste", "10^{-6}", "\\lambda", "blz_lp.py"):
         assert needle in math, needle
 
