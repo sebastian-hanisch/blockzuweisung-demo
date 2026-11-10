@@ -1,4 +1,4 @@
-"""Abnahmekriterien der Presets: Welche Geschichte erzählt jedes Beispielszenario, und woran erkennt man, dass sie trägt?
+"""Abnahmekriterien der Presets: Welche Geschichte erzählt jedes Beispielszenario, und woran erkennt man, dass sie gilt?
 
 Einzige Quelle für `tools/tune_presets.py` (Abstimmung) und `tests/test_preset_stories.py` (Abnahme). Jedes Kriterium ist eine Aussage über ein Tupel von `WeekRow`s (blz_evaluation): über viele Wochen die
 Aussage im MEDIAN (`criteria`), über die EINE Woche des Presets dieselbe Aussage an dieser Woche (`holds`, der Median einer Woche ist sie selbst). So wird dieselbe Geschichte an der Grundgesamtheit UND an

@@ -11,7 +11,7 @@ Kaiplatz-Planung als gegeben voraus und ersetzt weder die Stapelplanung im einen
 
 ## Warum dieses Problem
 
-Naheliegend wäre die Geschichte „Bündeln spart Weg, Verteilen gleicht die Last aus, dazwischen liegt ein Kompromiss“. Gemessen trägt sie **nur an den Rändern**: Bündeln kostet 228 m und im Mittel **1907 min** Wartezeit je Container
+Naheliegend wäre die Geschichte „Bündeln spart Weg, Verteilen gleicht die Last aus, dazwischen liegt ein Kompromiss“. Gemessen gilt sie **nur an den Rändern**: Bündeln kostet 228 m und im Mittel **1907 min** Wartezeit je Container
 (ein Schiff ruft 60 bis 90 Moves/h ab, ein Block schafft 40), Verteilen 457 m bei 0,5 min. Dazwischen liegt eine **sehr scharfe Kante**: Wartezeit null kostet nur 36 m mehr als das Bündeln (16 %), und ein Rechenplan erreicht sie. Dort
 gibt es weder einen Zielkonflikt noch ein Knie. Tragend ist etwas anderes, die **Robustheit**: der wartefreie Plan füllt die Blöcke in den Überlappungen der Beladefenster bis an die Grenze und zerbricht, wenn die Schiffe zu anderen
 Zeiten kommen (Wartezeit 0,5 auf 46 min bei Verspätung σ = 3 h). Ein Rechenplan, der die Verspätungen mitplant, kostet 24 bis 44 m Fahrweg (9 bis 17 %) und senkt die Wartezeit bei Verspätung auf 13 bis 10 min; keine geprüfte einfache Regel
@@ -65,7 +65,7 @@ Vergleiche, die Empfindlichkeit gegen σ und die Zahl der Szenarien) stammen unv
 | **Was, wenn das Lager voll ist?** | Bei 90 % Füllung verletzen Bündeln, Kranrate passend und Gierig die Lagergrenze in 30 / 23 / 21 von 30 Wochen (Test), Verteilen und die Rechenpläne nie; bei 91 % Füllung ist der Rechenplan der einzige zulässige Plan mit kurzem Weg (Messreihe: Kranrate passend 287,6 m mit 125,7 min Wartezeit, Verteilen 456,7 m). |
 | **Was, wenn σ falsch geschätzt ist?** | Plan für σ = 3 h, getestet bei σ = 1,5 / 3 / 5 h: 2,5 / 7,5 / 15,3 min; ein Plan für σ = 5 h bei σ = 3 h: 361 m, 5,9 min: teurer, sicherer (Messreihe). |
 | **Rechenzeit** | Gerechnet 0,02 s; abgesichert mit 10 Szenarien 0,3 bis 0,8 s; eine Woche mit allen sechs Verfahren und 30 Testszenarien 0,7 s; Stichprobe von 20 Wochen 15 s. |
-| **Presets** | Ein gemeinsamer Seed (**2017**) für alle fünf; jede Kennzahl zwischen dem 5. und 95. Perzentil der Grundgesamtheit. Von 60 Kandidaten tragen 17 alle fünf Geschichten (`tools/PRESET_SWEEP.md`). |
+| **Presets** | Ein gemeinsamer Seed (**2017**) für alle fünf; jede Kennzahl zwischen dem 5. und 95. Perzentil der Grundgesamtheit. Von 60 Kandidaten erfüllen 17 alle fünf Geschichten (`tools/PRESET_SWEEP.md`). |
 
 ## Ehrliche Grenzen
 
