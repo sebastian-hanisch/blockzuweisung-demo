@@ -76,7 +76,7 @@ Vergleiche, die Empfindlichkeit gegen σ und die Zahl der Szenarien) stammen unv
 - **Suchaufwand und Umstapeln im Block sind nicht modelliert:** der Bündelungsvorteil ist hier allein der Fahrweg (im Modell höchstens etwa 13 % gegen die Alltagsregel: Bündeln 228 gegen 264 m bei Kranrate passend).
 - Fahrweg einfach, ohne Stau (der Fahrzeugbedarf folgt daraus, ist aber nicht gerechnet; Verweis auf die Fahrzeugflotte-Demo); alle Blöcke gleich; Container austauschbar (keine Typen, Gewichte, Kühl- oder Gefahrgutcontainer).
 - Anlieferprofil (gleichmäßig in 36 h) und Blockrate sind **Annahmen**, keine Echtdaten; Verspätung nur als Verschiebung des Fensters, nicht als Dehnung; der Plan wird vor der Anlieferung fest gewählt (keine Neuplanung).
-- Der abgesicherte Plan ist eine Schätzung aus zehn Planungsszenarien (3 / 5 / 10 / 20 Szenarien: 13,5 / 9,7 / 7,5 / 6,7 min Wartezeit bei Verspätung, Rechenzeit 0,16 / 0,30 / 0,61 / 1,53 s, Messreihe); Überanpassung an die Planungsszenarien
+- Der abgesicherte Plan ist eine Schätzung aus zehn Planungsszenarien (3 / 5 / 10 / 20 Szenarien: 13,5 / 9,7 / 7,5 / 6,7 min Wartezeit bei Verspätung, Rechenzeit 0,16 / 0,30 / 0,61 / 1,53 s, Messreihe); Overfitting an die Planungsszenarien
   ist als Abstand zwischen Planungs- und Testszenarien sichtbar (getrennte Zufallszahlen).
 - Alle Zahlen sind **Größenordnungen aus einer Simulation, keine Messung an einem echten Terminal**.
 
