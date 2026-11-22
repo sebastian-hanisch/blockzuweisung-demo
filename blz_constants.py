@@ -48,14 +48,14 @@ METHOD_DESCRIPTIONS = {
                "Referenz aller Deltas.",
     M_GREEDY: "Schiff für Schiff nach Beginn des Fensters, je 10 Container in den nächsten Block, dessen Spitzenauslastung im Fenster unter 80 % bleibt (sonst der mit der kleinsten). "
               "Die schiffsweise Regel mit Reserve: sie sieht die späteren Schiffe nicht.",
-    M_LP: "Lineares Programm über die ganze Woche: minimale Wartezeit für pünktliche Schiffe, bei Gleichstand der kürzeste Weg. Exakt, das Optimum ist bewiesen. Zeigt die Kante, aber der Plan ist zerbrechlich.",
+    M_LP: "Lineares Programm über die ganze Woche: minimale Wartezeit für pünktliche Schiffe, bei Gleichstand der kürzeste Weg. Exakt, das Optimum ist bewiesen. Zeigt die Pareto-Front, aber der Plan ist zerbrechlich.",
     M_HEDGE: "Lineares Programm mit 10 Verspätungsszenarien: minimiere Fahrweg plus Preis λ mal mittlere Wartezeit über die Szenarien. Exakt (Optimum des Szenario-Modells). Der Preis der Absicherung in Metern.",
 }
 
 # --- Auswertung --------------------------------------------------------------------------------------
 SAMPLE_WEEKS, SAMPLE_BASE = 20, 3000     # Stichprobe: 20 Wochen ab Seed 3000 (bewusst nicht der eingestellte Seed), alle Verfahren, Bewertung an 30 Szenarien
 LAM_CURVE = (1, 2, 5, 10, 20, 50, 100)  # Punkte der Kurve "Preis der Absicherung"
-EPS_EDGE = (400, 200, 100, 50, 20, 10, 5, 2, 1)   # erlaubte Wartezeit (min) der Kante
+EPS_EDGE = (400, 200, 100, 50, 20, 10, 5, 2, 1)   # erlaubte Wartezeit (min) der Pareto-Front
 VERDICT_Z = 2.0                      # klar ab mehr als VERDICT_Z Standardfehlern der gepaarten Differenz
 PCT_LO, PCT_HI = 0.10, 0.90          # Perzentile der Verteilung (Rang ohne Interpolation)
 

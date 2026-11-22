@@ -35,7 +35,7 @@ def _compute_week(key):
 
 @st.cache_data(show_spinner=False, max_entries=8)
 def _compute_curve(key):
-    """Kurve "Preis der Absicherung" und Kante: sieben Szenario-LP und neun LP (etwa 4 s). Der eingestellte Preis geht nicht ein (die Kurve läuft über alle Preise)."""
+    """Kurve "Preis der Absicherung" und Pareto-Front: sieben Szenario-LP und neun LP (etwa 4 s). Der eingestellte Preis geht nicht ein (die Kurve läuft über alle Preise)."""
     return E.price_curve(E.Params(*key[:-1]), key[-1])
 
 
@@ -184,9 +184,9 @@ curve_key = tuple(p._replace(lam=C.LAM_DEFAULT)) + (int(seed),)
 sample_key = tuple(p)
 bcol1, bcol2 = st.columns(2)
 with bcol1:
-    if st.button("📈 Kurve und Kante rechnen (etwa 4 s)", width="stretch", key="curve_button",
-                 help="Sieben Szenario-LP mit Preisen von 1 bis 100 m je min und neun LP für die Kante (kürzester Weg unter erlaubter Wartezeit), für die eingestellte Woche."):
-        with st.spinner("Rechne sieben Szenario-LP und die Kante..."):
+    if st.button("📈 Kurve und Pareto-Front rechnen (etwa 4 s)", width="stretch", key="curve_button",
+                 help="Sieben Szenario-LP mit Preisen von 1 bis 100 m je min und neun LP für die Pareto-Front (kürzester Weg unter erlaubter Wartezeit), für die eingestellte Woche."):
+        with st.spinner("Rechne sieben Szenario-LP und die Pareto-Front..."):
             st.session_state["curve_result"] = (curve_key, _compute_curve(curve_key))
 with bcol2:
     if st.button(f"📊 Stichprobe rechnen ({C.SAMPLE_WEEKS} Wochen, etwa 15 s)", width="stretch", key="sample_button",
@@ -206,18 +206,18 @@ sample = stored_sample[1] if stored_sample and stored_sample[0] == sample_key el
 
 st.markdown("**Preis der Absicherung: Fahrweg gegen Wartezeit bei Verspätung**")
 if curve is None:
-    st.info("ℹ️ Die Kurve ist für diese Woche noch nicht gerechnet: Knopf „Kurve und Kante rechnen“ (die Regler wirken nicht auf eine früher gerechnete Kurve).")
+    st.info("ℹ️ Die Kurve ist für diese Woche noch nicht gerechnet: Knopf „Kurve und Pareto-Front rechnen“ (die Regler wirken nicht auf eine früher gerechnete Kurve).")
 else:
     st.plotly_chart(V.tradeoff_figure(res.outcomes, curve, p.lam), width="stretch", key="tradeoff_chart")
     knee = {pt.lam: pt for pt in curve.points}
     st.caption(f"Basis: die eingestellte Woche (Seed {int(seed)}), {C.N_TEST} Testszenarien mit σ = {p.sigma} h (andere Zufallszahlen als die {C.N_TRAIN} Planungsszenarien der Kurve). Quadrate: Regeln und der Rechenplan für "
                "pünktliche Schiffe; grüne Linie: der abgesicherte Plan mit Preis λ (kleiner Preis links, großer Preis rechts), der eingestellte Preis ist eingekreist. Links unten ist gut: die Kurve liegt "
                f"unter den Regeln. Von λ = 1 bis 100 wächst der Weg von {knee[1].distance:.0f} auf {knee[100].distance:.0f} m, die Wartezeit bei Verspätung fällt von {knee[1].wait_shift:.1f} auf {knee[100].wait_shift:.1f} min.")
-    st.markdown("**Die Kante: kürzester Weg bei erlaubter Wartezeit (pünktliche Schiffe)**")
+    st.markdown("**Die Pareto-Front: kürzester Weg bei erlaubter Wartezeit (pünktliche Schiffe)**")
     st.plotly_chart(V.edge_figure(curve), width="stretch", key="edge_chart")
     edge = dict(curve.edge)
     st.caption(f"Basis: LP der eingestellten Woche, Wartezeit pünktlich höchstens ε. Die kleinstmögliche Wartezeit beträgt {curve.min_wait:.2f} min; sie zu erreichen kostet {edge[1]:.0f} m gegen {curve.bundle_distance:.0f} m beim "
-               f"Bündeln und {curve.spread_distance:.0f} m beim Verteilen: ab wenigen Minuten erlaubter Wartezeit ist fast nichts mehr zu gewinnen. Die Kante ist die Aussage, ein Knie dazwischen gibt es nicht.")
+               f"Bündeln und {curve.spread_distance:.0f} m beim Verteilen: ab wenigen Minuten erlaubter Wartezeit ist fast nichts mehr zu gewinnen. Die Form der Pareto-Front ist die Aussage: ein Knie dazwischen gibt es nicht.")
 
 
 def _show_verdict(spec):
@@ -283,7 +283,7 @@ with pdf_slot:
         "📄 Ergebnis als PDF herunterladen",
         data=generate_blz_pdf(p, int(seed), res, diag, curve=curve, sample=sample),
         file_name="blockzuweisung_ergebnis.pdf", mime="application/pdf", key="primary_pdf_download",
-        help="Szenario, Zusammenfassung, Verfahrensvergleich und, falls schon gerechnet, Kurve, Kante und Stichprobe mit Urteil.")
+        help="Szenario, Zusammenfassung, Verfahrensvergleich und, falls schon gerechnet, Kurve, Pareto-Front und Stichprobe mit Urteil.")
 
 st.markdown("---")
 
@@ -347,7 +347,7 @@ schief sind. Ein Unterschied gilt als klar, wenn er mehr als zwei Standardfehler
 - Die Anlieferung (36 Stunden, gleichmäßig) ist eine **Annahme**, kein Echtdatum; die Kaiplatzplanung ist gegeben; Verspätung ist nur eine Verschiebung des Fensters, keine Dehnung; der Plan wird vor der Anlieferung fest gewählt.
 - Der abgesicherte Plan ist eine **Schätzung** aus zehn Planungsszenarien: ist σ falsch geschätzt, sinkt der Nutzen (Plan für σ = 3 h, getestet bei σ = 5 h: 15 statt 7,5 min Wartezeit, Messreihe).
 - Der LP-Plan wird auf ganze Container gerundet (Verfahren der größten Reste); der LP-Wert bleibt als Schranke sichtbar, der Rundungsverlust liegt im Zielwert im Mittel bei 0,8 %, höchstens bei 3 % (Messreihe).
-- Alle Zahlen sind **Größenordnungen aus einer Simulation, keine Messung an einem echten Terminal**; die Rechnung selbst ist gegen eine unabhängige Nachrechnung und gegen vollständiges Durchprobieren geprüft.
+- Alle Zahlen sind **Größenordnungen aus einer Simulation, keine Messung an einem echten Terminal**; die Rechnung selbst ist gegen eine unabhängige Nachrechnung und gegen vollständige Enumeration kleiner Instanzen geprüft.
         """
     )
 
@@ -389,7 +389,7 @@ der Rekursion an (Konvexität): der Zielwert des LP ist die Wartezeit der Simula
 
 - **Gerechnet:** ein Szenario (pünktlich), Ziel $\min\ W + 10^{-6} D$ (die Wartezeit zuerst, bei Gleichstand der Weg: der Zielwert ist eindeutig).
 - **Gerechnet und abgesichert:** zehn Planungsszenarien, Ziel $\min\ D + \lambda \cdot \frac{1}{10} \sum_k W^k$ mit dem Preis $\lambda$ in m je min.
-- **Kante:** $\min\ D$ unter $W \le \varepsilon$ (pünktlich).
+- **Pareto-Front:** $\min\ D$ unter $W \le \varepsilon$ (pünktlich).
 
 **Rundung.** Je Schiff auf ganze Container nach dem Verfahren der größten Reste (Gleichstand: kleinerer Index); die Summe bleibt $n_s$. Der LP-Wert ist eine Untergrenze des ganzzahligen Optimums.
 
@@ -398,7 +398,7 @@ der Rekursion an (Konvexität): der Zielwert des LP ist die Wartezeit der Simula
 **Vergleich über Wochen.** Für Verfahren $A$ gegen Referenz $B$ auf denselben Wochen $w = 1, \dots, 20$ ist $\Delta_w = X_A^{(w)} - X_B^{(w)}$ die Differenz einer Kennzahl $X$ (negativ = besser); berichtet werden Mittel,
 Median und Anteile der Wochen mit $\Delta_w < 0$, $= 0$, $> 0$. Ein Unterschied gilt als klar, wenn $|\bar\Delta| > 2\,\mathrm{SE}(\Delta)$.
 
-Implementiert in `blz_scenario.py` (Woche, Szenarien), `blz_rules.py` (Regeln), `blz_queue.py` (Rückstand, Kennzahlen), `blz_lp.py` (LP mit OR-Tools GLOP, Rundung) und `blz_evaluation.py` (Verfahren, Kurve, Kante, Stichprobe, Urteil).
+Implementiert in `blz_scenario.py` (Woche, Szenarien), `blz_rules.py` (Regeln), `blz_queue.py` (Rückstand, Kennzahlen), `blz_lp.py` (LP mit OR-Tools GLOP, Rundung) und `blz_evaluation.py` (Verfahren, Kurve, Pareto-Front, Stichprobe, Urteil).
         """
     )
 

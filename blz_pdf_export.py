@@ -22,7 +22,7 @@ def pdf_text(text):
 
 
 def generate_blz_pdf(p, seed, res, diag, curve=None, sample=None, compress=True):
-    """Ergebnis der aktuellen Einstellung als PDF: Szenario, Zusammenfassung, Verfahrensvergleich, optional Kurve und Kante, Stichprobe mit Urteil, Hinweise.
+    """Ergebnis der aktuellen Einstellung als PDF: Szenario, Zusammenfassung, Verfahrensvergleich, optional Kurve und Pareto-Front, Stichprobe mit Urteil, Hinweise.
 
     `p`: E.Params; `res`: E.WeekResult; `diag`: E.Diagnosis; `curve`: E.Curve oder None; `sample`: Tupel von WeekRow oder None."""
     from fpdf import FPDF
@@ -134,7 +134,7 @@ def generate_blz_pdf(p, seed, res, diag, curve=None, sample=None, compress=True)
         "Flüssigkeitsmodell in Stundenschritten: Schiffe rufen ihre Container gleichmäßig über das Beladefenster ab, dieselben Container kommen gleichmäßig in den 36 Stunden vorher an und belasten den Block ebenfalls.",
         "Ein Rückstand bremst den Schiffskran nicht zurück (Untergrenze der echten Kopplung); Suchaufwand und Umstapeln im Block sind nicht modelliert: der Bündelungsvorteil ist allein der Fahrweg.",
         "Fahrweg einfach, ohne Stau; alle Blöcke gleich; Container austauschbar; der Plan wird vor der Anlieferung fest gewählt. Verspätung ist eine Verschiebung des Beladefensters, keine Dehnung.",
-        "Alle Zahlen sind Größenordnungen aus einer Simulation, keine Messung an einem echten Terminal; das LP ist gegen eine unabhängige Nachrechnung und gegen vollständiges Durchprobieren geprüft.",
+        "Alle Zahlen sind Größenordnungen aus einer Simulation, keine Messung an einem echten Terminal; das LP ist gegen eine unabhängige Nachrechnung und gegen vollständige Enumeration kleiner Instanzen geprüft.",
     ]:
         pdf.multi_cell(0, 5, pdf_text("- " + text), new_x=XPos.LMARGIN, new_y=YPos.NEXT)
 
